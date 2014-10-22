@@ -25,7 +25,10 @@ namespace Form_Filler
         public static string chkpageRefresh { get; set; }
         public static string product_id { get; set; }
         public static string gobuttonflag { get; set; }
-        public static String[,] members = new String[7, 10];
+        public static String[,] picklist = new String[7, 10];
+        public static string lines { get; set; }
+        public static string weeks { get; set; }
+        public static string amount { get; set; }
 
         public static string getConnectionString()
         {
