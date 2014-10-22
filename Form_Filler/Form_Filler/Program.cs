@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
+using Form_Filler.Class;
 
 namespace Form_Filler
 {
     static class Program
     {
+        public static string firstname { get; set; }
+        public static string lastname { get; set; }
         public static string Ticket_account { get; set; }
         public static string User_ID { get; set; }
         public static int state { get; set; }
@@ -29,10 +29,12 @@ namespace Form_Filler
         public static string lines { get; set; }
         public static string weeks { get; set; }
         public static string amount { get; set; }
+        public static container mainContainer { get; set; }
 
         public static string getConnectionString()
         {
-            return "Data Source=83.170.82.67;Initial Catalog=lottobytext_staging;User ID=rahul;Password=R91j1Diza;Persist Security Info=False;";
+           // return "Data Source=83.170.82.67;Initial Catalog=lottobytext_staging;User ID=rahul;Password=R91j1Diza;Persist Security Info=False;";
+            return "Data Source=54.75.231.135;Initial Catalog=lottobytext;User ID=rahul;Password=Rah@#ltx@$%as;Persist Security Info=False;";
         }
 
         public static string getResponseXML(string xml)
@@ -75,7 +77,38 @@ namespace Form_Filler
                 con.Close();
             }
         }
-      
+
+        public static string getResponseXMLFromPickList(string productId)
+        {
+            string response_XML = "";
+            SqlConnection con = new SqlConnection(getConnectionString());
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 1200;
+                cmd.CommandText = "Proc_picklist_xml";
+                cmd.Parameters.AddWithValue("@ProductID", productId);
+                cmd.Parameters.Add("@OutputXML", SqlDbType.NVarChar, -1);
+                cmd.Parameters["@OutputXML"].Direction = ParameterDirection.Output;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                response_XML = cmd.Parameters["@OutputXML"].Value.ToString();
+                return response_XML; 
+            }
+            catch
+            {
+                con.Close();
+                return response_XML;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -88,5 +121,48 @@ namespace Form_Filler
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmlogin());
         }
+
+
+
+        public static string updateerror(int Player_ID, int Ticket_Account_ID, string Product, string Ticket_Account_Username, string Page_URL, string Page_Source, string Ticket_Details, string Session_ID)
+        {
+            string response_XML = "";
+            SqlConnection con = new SqlConnection(getConnectionString());
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "proc_formfillerErrorxml";
+                cmd.Parameters.AddWithValue("@Player_ID", Player_ID);
+                cmd.Parameters.AddWithValue("@Ticket_Account_ID", Ticket_Account_ID);
+                cmd.Parameters.AddWithValue("@Product", Product);
+                cmd.Parameters.AddWithValue("@Ticket_Account_Username", Ticket_Account_Username);
+                cmd.Parameters.AddWithValue("@Page_URL", Page_URL);
+                cmd.Parameters.AddWithValue("@Page_Source", Page_Source);
+                cmd.Parameters.AddWithValue("@Ticket_Details", Ticket_Details);
+                cmd.Parameters.AddWithValue("@Session_ID", Session_ID);
+
+                cmd.Parameters.Add("@Error_ID", SqlDbType.Int);
+                cmd.Parameters["@Error_ID"].Direction = ParameterDirection.Output;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                response_XML = cmd.Parameters["@Error_ID"].Value.ToString();
+                return response_XML;
+                con.Close();
+            }
+            catch
+            {
+                con.Close();
+                return response_XML;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
+
 }

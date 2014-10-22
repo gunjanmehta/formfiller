@@ -50,6 +50,13 @@ namespace Form_Filler
                 }
                 else
                 {
+                    Program.PlayerID ="";
+                    Program.User_ID="";
+                    Program.Ticket_account = "";
+                    Program.Sign_In_Url = "";
+                    Program.state =0;
+                    Program.tkt_username ="";
+                    Program.tkt_password = "";
                     lblvalidationmsg.Text = " * Please Enter Valid Username/password";
                     lblvalidationmsg.Visible = true;
                 }
@@ -63,8 +70,6 @@ namespace Form_Filler
                 GC.SuppressFinalize(this);
             }
         }
-
-
         public bool isuservalid()
         {
             try
@@ -99,6 +104,8 @@ namespace Form_Filler
                 int uservalid = Convert.ToInt32(XMLPost_Response.TakeAction.ProcessName.Field[5].Value);
                 Program.tkt_username = XMLPost_Response.TakeAction.ProcessName.Field[6].Value;
                 Program.tkt_password = XMLPost_Response.TakeAction.ProcessName.Field[7].Value;
+                Program.firstname = XMLPost_Response.TakeAction.ProcessName.Field[8].Value;
+                Program.lastname = XMLPost_Response.TakeAction.ProcessName.Field[9].Value;
                 reader.Close();
 
              
@@ -153,12 +160,6 @@ namespace Form_Filler
             return g.ToString();
 
         }
-
-        private void frmlogin_Load(object sender, EventArgs e)
-        {
-
-        }
-
         #region Declare class for Serialization and DeSerialization
 
         [Serializable()]

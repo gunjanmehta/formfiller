@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Form_Filler.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -66,13 +68,72 @@ namespace Form_Filler
 
         private void btnproceed_Click(object sender, EventArgs e)
         {
+            string getXmlFromDB = "";
             if (rbtnfriday.Checked == true || rbtnsaturday.Checked == true || rbtntuesday.Checked == true || rbtnwednesday.Checked == true)
             {
                 if (countchecklist())
                 {
-                    The_National_Lottery_Sign_in NLbrowser = new The_National_Lottery_Sign_in();
-                    NLbrowser.Show();
-                    this.Close();
+                    getXmlFromDB = Program.getResponseXMLFromPickList(Program.product_id);
+                    //Kamlesh
+                    //string fileName = "";
+                    //if (Program.Product_type == "Lotto")
+                    //{
+                    //    if (Program.Draw_day == "Wed")
+                    //    {
+                    //        fileName = "http://interact.austere.co.in/Form%20filler%20XML/Wednesday.xml";
+                    //    }
+                    //    else if (Program.Draw_day == "Sat")
+                    //    {
+                    //        //fileName = "http://interact.austere.co.in/Form%20filler%20XML/Saturday.xml";
+
+                    //        getXmlFromDB = Program.getResponseXMLFromPickList(Program.product_id);
+                    //    }
+                    //}
+                    //else if (Program.Product_type == "Euro")
+                    //{
+
+                    //    if (Program.Draw_day == "Fri")
+                    //    {
+                    //        fileName = "http://interact.austere.co.in/Form%20filler%20XML/Friday.xml";
+                    //    }
+                    //    else if (Program.Draw_day == "Tue")
+                    //    {
+                    //        fileName = "http://interact.austere.co.in/Form%20filler%20XML/Tuesday.xml";
+                    //    }
+                    //}
+
+                   // string fileData = GetWebsiteHtml(fileName);
+                    string fileData = getXmlFromDB;
+                    if (fileData != "" || fileData != null)
+                    {
+                        MemoryStream stream = new MemoryStream();
+                        StreamWriter writer = new StreamWriter(stream);
+                        writer.Write(fileData);
+                        writer.Flush();
+                        stream.Position = 0;
+
+
+                        container container = null;
+                        XmlSerializer serializer = new XmlSerializer(typeof(container));
+
+                        StreamReader reader = new StreamReader(stream);
+                        container = (container)serializer.Deserialize(reader);
+                        reader.Close();
+
+
+                        Program.mainContainer = container;
+                        //Kamlesh
+
+
+                        The_National_Lottery_Sign_in NLbrowser = new The_National_Lottery_Sign_in();
+                        NLbrowser.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No more Ticket to paste.");
+                    }
+
                 }
                 else
                 {
@@ -85,6 +146,19 @@ namespace Form_Filler
                 lblvalidationmsg.Text = "* Please select any Product. ";
                 lblvalidationmsg.Visible = true;
             }
+        }
+
+        private string GetWebsiteHtml(string url)
+        {
+            WebRequest request = WebRequest.Create(url);
+            WebResponse response = request.GetResponse();
+            Stream stream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(stream);
+            string result = reader.ReadToEnd();
+            stream.Dispose();
+            reader.Dispose();
+            return result;
+
         }
 
         private void rbtnwednesday_CheckedChanged(object sender, EventArgs e)

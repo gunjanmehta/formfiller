@@ -47,8 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Action.cs" />
+    <Compile Include="Class\After.cs" />
+    <Compile Include="Class\Before.cs" />
     <Compile Include="Class\container.cs" />
     <Compile Include="Class\Detail.cs" />
+    <Compile Include="Class\FieldName.cs" />
+    <Compile Include="Class\ProcessName.cs" />
+    <Compile Include="Class\SerializeAndDeserialize.cs" />
+    <Compile Include="Class\Tablename.cs" />
+    <Compile Include="Class\XMLPost.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

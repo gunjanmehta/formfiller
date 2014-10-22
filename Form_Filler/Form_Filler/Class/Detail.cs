@@ -47,5 +47,9 @@ namespace Form_Filler.Class
 
         [XmlElement("Timestamp")]
         public DateTime Timestamp { get; set; }
+
+        public bool isRead { get; set; }
+
+        public string processed { get; set; }
     }
 }
