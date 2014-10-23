@@ -57,7 +57,7 @@ namespace Form_Filler
                     return;
                 }
 
-                if (Program.chkpageRefresh == "login")
+                if (Program.chkpageRefresh == "login" && !(websignin.DocumentTitle.ToString().Trim() == "Here's your ticket | Lotto | The National Lottery" || websignin.DocumentTitle.ToString().Trim() == "Here's your ticket | EuroMillions | The National Lottery"))
                 {
                     if (websignin.DocumentTitle.ToString().Trim() == "Sign in | The National Lottery")
                     {
