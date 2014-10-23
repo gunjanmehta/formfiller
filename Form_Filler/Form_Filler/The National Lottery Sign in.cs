@@ -1326,6 +1326,40 @@ namespace Form_Filler
             try
             {
                 HtmlElement lines = websignin.Document.GetElementById(lineIds);
+
+                if (lines == null)
+                {
+                    MessageBox.Show("Trying to buy wrong product - Please choose correct product!");
+                    Program.Ticket_account = "";
+                    Program.User_ID = "";
+                    Program.state = 0;
+                    Program.PlayerID = "";
+                    Program.Sign_In_Url = "";
+                    Program.Product_URL = "";
+                    Program.login_session_Id = "";
+                    Program.Product_type = "";
+                    Program.Draw_day = "";
+                    Program.product_Name = "";
+                    Program.tkt_username = "";
+                    Program.tkt_password = "";
+                    Program.chkpageRefresh = "";
+                    Program.product_id = "";
+                    Program.gobuttonflag = "";
+                    Program.lines = "";
+                    Program.weeks = "";
+                    Program.amount = "";
+                    for (int i = 0; i < Program.picklist.GetUpperBound(0) + 1; i++)
+                    {
+                        for (int j = 0; j < Program.picklist.GetUpperBound(1) + 1; j++)
+                        {
+                            Program.picklist[i, j] = "";
+                        }
+                    }
+                    frmlogin login = new frmlogin();
+                    login.Show();
+                    this.Close();
+                    return;
+                }
                 string ischecked = websignin.Document.GetElementById(drawdayid).GetAttribute("checked");
                 string ischecked2 = websignin.Document.GetElementById(drawdayid2).GetAttribute("checked");
                 string isweekselected = websignin.Document.GetElementById(weekid).GetAttribute("Value");

@@ -45,7 +45,6 @@ E:\Form Filler\formfiller\Form_Filler\Form_Filler\obj\Debug\Form_Filler.exe
 E:\Form Filler\formfiller\Form_Filler\Form_Filler\obj\Debug\Form_Filler.pdb
 E:\Form Filler\formfiller\Form_Filler\Form_Filler\bin\Debug\Form_Filler.exe
 E:\Form Filler\formfiller\Form_Filler\Form_Filler\bin\Debug\Form_Filler.pdb
-E:\Form Filler\formfiller\Form_Filler\Form_Filler\obj\Debug\Form_Filler.csprojResolveAssemblyReference.cache
 E:\Form Filler\formfiller\Form_Filler\Form_Filler\obj\Debug\Form_Filler.frmlogin.resources
 E:\Form Filler\formfiller\Form_Filler\Form_Filler\obj\Debug\Form_Filler.MainMenu.resources
 E:\Form Filler\formfiller\Form_Filler\Form_Filler\obj\Debug\Form_Filler.Properties.Resources.resources
