@@ -68,7 +68,7 @@ namespace Form_Filler.Class
                         first_draw = getFirstDrawDate.ToString("MM/dd/yyyy");
                         last_draw = getFirstDrawDate.ToString("MM/dd/yyyy");
                         ticket_no = websignin.Document.GetElementById("ticket_serial").InnerHtml.ToString();
-                        timestamp_update = DateTime.Now.ToString();
+                        timestamp_update = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
                         raffle_num = raffelnumbers[count];
                     }
                     else if (Program.Product_type == "Euro")
@@ -79,7 +79,7 @@ namespace Form_Filler.Class
                         first_draw = getFirstDrawDate.ToString("MM/dd/yyyy");
                         last_draw = getFirstDrawDate.ToString("MM/dd/yyyy");
                         ticket_no = websignin.Document.GetElementById("ticket_serial").InnerHtml.ToString();
-                        timestamp_update = DateTime.Now.ToString();
+                        timestamp_update = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
                         raffle_num = raffelnumbers[count];
                     }
                   
